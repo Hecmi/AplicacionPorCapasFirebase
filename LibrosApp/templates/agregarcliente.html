@@ -1,0 +1,55 @@
+<!-- En tu archivo HTML -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar cliente</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'agregarcliente' %}">Cliente</a></li>
+        <li><a href="{% url 'agregarventas' %}">Sucursales</a></li>
+        <li><a href="{% url 'producto_sucursales' %}">Producto</a></li>
+      </ul>
+    
+    <h1>Agregar Cliente</h1>
+    <form method="post" >
+        {% csrf_token %}
+        <!-- Agrega aquí los campos del formulario -->
+        <label for="identificacion">Cedula:</label>
+        <input type="text" name="identificacion" required><br>
+
+        <label for="nombres">Nombres:</label>
+        <input type="text" name="nombres" required><br>
+
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" name="apellidos" required><br>
+
+        <label for="direccion">Dirección:</label>
+        <input type="text" name="direccion" required><br>
+
+        <label for="telefono">Telefono:</label>
+        <input name="telefono" required><br>
+
+        <label for="email">Correo:</label>
+        <input type="email" name="email" required><br>
+
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" name="fecha_nacimiento" required><br>
+
+    
+        <button type="submit">Guardar</button>
+        <button type="submit" onclick="ver_cliente()">Cancelar</button>
+    </form>
+    <script>
+        function ver_cliente() {
+       window.location.href = '{% url "ver_cliente" %}';
+   }
+        
+   </script>
+</body>
+</html>

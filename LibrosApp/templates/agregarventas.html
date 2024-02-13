@@ -1,0 +1,61 @@
+<!-- En tu archivo HTML -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Sucursales</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'agregarcliente' %}">Cliente</a></li>
+        <li><a href="{% url 'agregarventas' %}">Sucursales</a></li>
+        <li><a href="{% url 'producto_sucursales' %}">Producto</a></li>
+      </ul>
+    <h1>Agregar ventas</h1>
+    <form method="post" >
+        {% csrf_token %}
+        <!-- Agrega aquí los campos del formulario -->
+        <label for="id_venta">ID Venta</label>
+        <input type="text" name="id_venta" required><br>
+
+        <label for="id_producto">ID Producto</label>
+        <input type="text" name="id_producto" required><br>
+
+        <label for="identificacion">Identificacion</label>
+        <input type="text" name="identificacion" required><br>
+
+        <label for="cantidad">Cantidad:</label>
+        <input type="text" name="cantidad" required><br>
+
+        <label for="subtotal">SubTotal:</label>
+        <input name="subtotal" required><br>
+
+        <label for="total">Total:</label>
+        <input name="total" required><br>
+
+        <label for="impuesto_aplicado">Impuesto Aplicado</label>
+        <input name="impuesto_aplicado" required><br>
+
+
+        <label for="descuento_aplicado">Descuento Aplicado</label>
+        <input name="descuento_aplicado" required><br>
+
+        <label for="fecha_venta">Fecha Venta</label>
+        <input type="date" name="fecha_venta" required><br>
+        
+        <button type="submit">Guardar</button>
+        <button type="submit" onclick="ver_ventas()">Cancelar</button>
+
+    </form>
+    <script>
+            
+        function ver_ventas() {
+       window.location.href = '{% url "ver_ventas" %}';
+   }
+   </script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Productos</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'ver_cliente' %}">Cliente</a></li>
+        <li><a href="{% url 'ver_ventas' %}">Sucursales</a></li>
+        <li><a href="{% url 'ver_producto_sucursales' %}">Producto</a></li>
+      </ul>
+    <h1>Productos</h1>
+    <form method="POST" action="{% url 'buscar_producto' %}" style="float: right; margin-right: 10px; margin-top: -80px;">
+        {% csrf_token %}  
+        <div>
+            <input type="text" id="search" name="texto_buscar" style="width: 150px;">
+            <select name="atributo">
+                <option value="nombre_producto">Producto</option>
+                <option value="descripcion">Descripcion</option>
+            </select>
+            <button type="submit">Buscar</button>
+            <button type="button" onclick="agregarProduto()">Agregar</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID Producto</th>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Unidad de Medida</th>
+                <th>Precio</th>
+                <th>Iva</th>
+                <th>Descuento</th>
+                <th>Descripcion</th>
+                <th>Fecha de Creacion</th>
+                <th>Fecha de Modificacion</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto_sucursale in producto_sucursales %}
+                <tr>
+                    <td>{{ producto_sucursale.id_producto}}</td>
+                    <td>{{ producto_sucursale.producto }}</td>
+                    <td>{{ producto_sucursale.cantidad }}</td>
+                    <td>{{ producto_sucursale.unidad_medida }}</td>
+                    <td>{{ producto_sucursale.precio_unitario }}</td>
+                    <td>{{ producto_sucursale.iva }}</td>
+                    <td>{{ producto_sucursale.descuento }}</td>
+                    <td>{{ producto_sucursale.descripcion }}</td>
+                    <td>{{ producto_sucursale.fecha_creacion }}</td>
+                    <td>{{ producto_sucursale.fecha_modificacion }}</td>
+
+                    <td>
+                        <!-- Botones Modificar y Eliminar -->
+                        <a href="{% url 'editar_producto_sucursales' id_producto=producto_sucursale.id_producto %}">Modificar</a>
+                        <a href="{% url 'eliminar_producto' id_producto=producto_sucursale.id_producto %}"class="eliminar">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    <script>
+         function agregarProduto() {
+        window.location.href = '{% url "producto_sucursales" %}';
+    }
+        function modificarProducto(producto_sucursalesId) {
+            alert("Modificar Producto con ID " + producto_sucursalesId);
+        }
+    
+        function eliminarProducto(producto_sucursalesId) {
+            alert("Eliminar Producto con ID " + producto_sucursalesId);
+        }
+    </script>
+</body>
+</html>

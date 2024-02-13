@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Producto</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <h1>Modificar Producto</h1>
+
+    <form method="POST">
+        {% csrf_token %}        
+        <input type="hidden" name="id_producto" value="{{producto.id_producto}}">
+    
+        <label for="producto">Producto:</label>
+        <input type="text" id="producto" name="producto" value="{{ producto.producto }}" required><br>
+    
+        <label for="cantidad">Cantidad:</label>
+        <input type="text" id="cantidad" name="cantidad" value="{{ producto.cantidad }}" required><br>
+    
+        <label for="unidad_medida">Unidad de Medida:</label>
+        <input type="text" id="unidad_medida" name="unidad_medida" value="{{ producto.unidad_medida }}" required><br>
+    
+        <label for="precio_unitario">Precio:</label>
+        <input type="text" id="precio_unitario" name="precio_unitario" value="{{ producto.precio_unitario }}" required><br>
+    
+        <label for="iva">Iva:</label>
+        <input type="text" id="iva" name="iva" value="{{ producto.iva }}" required><br>
+    
+        <label for="descuento">Descuento:</label>
+        <input type="text" id="descuento" name="descuento" value="{{ producto.descuento }}" required><br>
+        
+        <label for="descripcion">Descripcion:</label>
+        <input type="text" id="descripcion" name="descripcion" value="{{ producto.descripcion }}" required><br>
+    
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" onclick="ver_productos_sucursales()">Cancelar</button>
+    </form>
+
+    <script>
+        function ver_productos_sucursales() {
+            window.location.href = '{% url "ver_producto_sucursales" %}';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!-- En tu archivo HTML -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'agregarcliente' %}">Cliente</a></li>
+        <li><a href="{% url 'agregarventas' %}">Sucursales</a></li>
+        <li><a href="{% url 'producto_sucursales' %}">Producto</a></li>
+      </ul>
+    <h1>Agregar Producto</h1>
+    <form method="post" >
+        {% csrf_token %}
+        <!-- Agrega aquí los campos del formulario -->
+
+        <label for="id_producto">ID Producto:</label>
+        <input type="text" name="id_producto" required><br>
+
+        <label for="producto">Producto:</label>
+        <input type="text" name="producto" required><br>
+
+        <label for="cantidad">Stock:</label>
+        <input type="text" name="cantidad" required><br>
+
+        <label for="unidad_medida">Unidad de Medida:</label>
+        <input type="text" name="unidad_medida" required><br>
+
+        <label for="precio_unitario">Precio:</label>
+        <input type="text" name="precio_unitario" required><br>
+        
+        <label for="iva">Iva:</label>
+        <input name="iva" required><br>
+
+        <label for="descuento">Descuento:</label>
+        <input name="descuento" required><br>
+
+        <label for="descripcion">Descripción:</label>
+        <input name="descripcion" required><br>
+
+        <button type="submit">Guardar</button> 
+        <button type="submit" onclick="ver_producto()">Cancelar</button>
+    </form>
+    <script>
+        function ver_producto() {
+       window.location.href = '{% url "ver_producto_sucursales" %}';
+   }
+   </script>
+</body>
+</html>

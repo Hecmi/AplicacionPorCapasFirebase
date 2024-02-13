@@ -1,0 +1,77 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Sucursales</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+
+</head>
+<body>
+    <ul>
+        <li><a href="{% url 'ver_cliente' %}">Cliente</a></li>
+        <li><a href="{% url 'ver_ventas' %}">Sucursales</a></li>
+        <li><a href="{% url 'ver_producto_sucursales' %}">Producto</a></li>
+      </ul>
+    <h1>Ventas</h1>
+    <form method="POST" action="{% url 'buscar_venta' %}" style="float: right; margin-right: 10px; margin-top: -80px;">
+        {% csrf_token %}
+        <div>
+            <input type="text" id="search" name="texto_buscar" style="width: 150px;">
+            <select name="atributo">
+                <option value="fecha_venta">Fecha</option>
+
+            </select>
+            <button type="submit">Buscar</button>
+            <button type="button" onclick="agregarSucursale()">Agregar</button>
+        </div>
+    </form>
+    <table>
+        <thead>
+            <tr>
+                <th>ID Venta</th>
+                <th>ID Producto</th>
+                <th>ID Cliente</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Total</th>
+                <th>Impuesto Aplicado</th>
+                <th>Descuento Aplicado</th>
+                <th>Fecha Venta</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for venta in ventas %}
+                <tr>
+                    <td>{{ venta.id_venta }}</td>
+                    <td>{{ venta.id_producto }}</td>
+                    <td>{{ venta.id_cliente }}</td>
+                    <td>{{ venta.cantidad }}</td>
+                    <td>{{ venta.subtotal }}</td>
+                    <td>{{ venta.total }}</td>
+                    <td>{{ venta.impuesto_aplicado }}</td>
+                    <td>{{ venta.descuento_aplicado }}</td>
+                    <td>{{ venta.fecha_venta }}</td>
+                    <td>
+                        <!-- Botones Modificar y Eliminar -->
+                        <a href="{% url 'editar_venta' id_venta=venta.id_venta %}">Modificar</a>
+                        <a href="{% url 'eliminar_venta' id_venta=venta.id_venta %}"class="eliminar">Eliminar</a>
+                        <!-- <button type="button" onclick="eliminarSucursale('{{ sucursale.id }}')">Eliminar</button> -->
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+    <script>
+        function agregarSucursale() {
+       window.location.href = '{% url "agregarventas" %}';
+   }
+       function eliminarSucursale(sucursaleId) {
+           alert("Eliminar sucursale con ID " + sucursaleId);
+       }
+   </script>  
+</body>
+</html>
+

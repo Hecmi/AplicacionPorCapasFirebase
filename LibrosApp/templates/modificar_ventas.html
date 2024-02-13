@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modificar Venta</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/global.css' %}">
+</head>
+<body>
+    <h1>Modificar Venta</h1>
+
+    <form method="POST">
+        {% csrf_token %}        
+        
+        <input type="hidden" name="id_venta" value="{{venta.id_venta}}">
+
+        <label for="id_producto">ID Producto</label>
+        <input type="text" id="id_producto" name="id_producto" value="{{ venta.id_producto }}" required><br>
+
+        <label for="id_cliente">ID Cliente</label>
+        <input type="text" id="id_cliente" name="id_cliente" value="{{ venta.id_cliente }}" required><br>
+
+        <label for="cantidad">Cantidad</label>
+        <input type="text" id="cantidad" name="cantidad" value="{{ venta.cantidad }}" required><br>
+
+        <label for="subtotal">Subtotal</label>
+        <input type="text" id="subtotal" name="subtotal" value="{{ venta.subtotal }}" required><br>
+
+        <label for="total">Total</label>
+        <input type="text" id="total" name="total" value="{{ venta.total }}" required><br>
+    
+    
+        <label for="impuesto_aplicado">Impuesto Aplicado</label>
+        <input type="text" id="impuesto_aplicado" name="impuesto_aplicado" value="{{ venta.impuesto_aplicado }}" required><br>
+    
+        <label for="descuento_aplicado">Descuento Aplicado</label>
+        <input type="text" id="descuento_aplicado" name="descuento_aplicado" value="{{ venta.descuento_aplicado }}" required><br>
+    
+        <label for="fecha_venta">Fecha_venta:</label>
+        <input type="text" id="fecha_venta" name="fecha_venta" value="{{ venta.fecha_venta }}" required><br>
+
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" onclick="ver_ventas()">Cancelar</button>
+    </form>
+
+    <script>
+        function ver_ventas() {
+            window.location.href = '{% url "ver_ventas" %}';
+        }
+    </script>
+</body>
+</html>
